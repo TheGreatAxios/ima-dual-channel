@@ -3,12 +3,13 @@ import "@nomicfoundation/hardhat-toolbox";
 import dotenv from 'dotenv';
 import 'hardhat-deploy';
 import 'hardhat-deploy-ethers';
+import chalk from "chalk";
 
 dotenv.config();
 
 const PRIVATE_KEY: string | undefined = (process.env.PRIVATE_KEY as string | undefined);
 if (!PRIVATE_KEY) {
-    throw new Error("Private Key Not Found");
+    throw new Error(chalk.redBright("PRIVATE_KEY not found in .env"));
 }
 
 const BASE_STAGING_URL: string = "https://staging-v3.skalenodes.com/v1/" as const;
