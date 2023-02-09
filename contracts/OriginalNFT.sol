@@ -24,11 +24,11 @@ contract InGameNFT is AccessControlEnumerable, ERC721URIStorage {
         proxy = IMessageProxyForSchain(0xd2AAa00100000000000000000000000000000000);
     }
 
-    function mint(address to, uint256 tokenId) public returns (uint256) {
-        require(hasRole(MINTER_ROLE, _msgSender()), "Sender is not a Minter");
-        _mint(to, tokenId);
-        return tokenId;
-    }
+    // function mint(address to, uint256 tokenId) public returns (uint256) {
+    //     require(hasRole(MINTER_ROLE, _msgSender()), "Sender is not a Minter");
+    //     _mint(to, tokenId);
+    //     return tokenId;
+    // }
 
     function mint(Types.TargetToOriginRequest memory data) external {
         require(hasRole(MINTER_ROLE, _msgSender()), "Sender is not a Minter");
