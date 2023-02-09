@@ -9,11 +9,14 @@ contract InGameNFT is AccessControlEnumerable, ERC721URIStorage {
     
     bytes32 public constant MINTER_ROLE = keccak256("MINTER_ROLE");
     bytes32 public constant BURNER_ROLE = keccak256("BURNER_ROLE");
-    bytes32 public constant ORIGIN_CHAIN_HASH = keccak256(abi.encodePacked("staging-utter-unripe-menkar"));
+    bytes32 public immutable ORIGIN_CHAIN_HASH;
 
-    constructor() ERC721("In Game NFT", "INGAME") {
+    constructor(
+        string memory _originChainName
+    ) ERC721("In Game NFT", "INGAME") {
         _setupRole(MINTER_ROLE, 0xd2AAa00100000000000000000000000000000000);
         _setupRole(BURNER_ROLE, 0xd2AAa00100000000000000000000000000000000);
+        ORIGIN_CHAIN_HASH = keccak256(abi.encodePacked(_originChainName));
     }
 
     function burn(uint256 tokenId) public virtual {

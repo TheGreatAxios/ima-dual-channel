@@ -13,13 +13,15 @@ contract InGameContract {
     IMessageProxyForSchain proxy;
     address calypsoTarget;
 
-    bytes32 public constant TARGET_CHAIN_HASH = keccak256(abi.encodePacked("staging-utter-unripe-menkar"));
+    bytes32 public immutable TARGET_CHAIN_HASH;
     
     constructor(
-        address _calypsoTarget
+        address _calypsoTarget,
+        string memory _targetChainName
     ) {
         proxy = IMessageProxyForSchain(0xd2AAa00100000000000000000000000000000000);
         calypsoTarget = _calypsoTarget;
+        TARGET_CHAIN_HASH = keccak256(abi.encodePacked(_targetChainName));
     }
 
     function claim(Types.MintRequest memory data) public {

@@ -13,16 +13,18 @@ contract DualChannel721 is IDualChannel721, AccessControlEnumerable, ERC721URISt
     using Counters for Counters.Counter;
 
     bytes32 public constant MINTER_ROLE = keccak256("MINTER_ROLE");
-    bytes32 public constant TARGET_CHAIN_HASH = keccak256(abi.encodePacked("staging-faint-slimy-achird"));
+    bytes32 public immutable TARGET_CHAIN_HASH;
     Counters.Counter public tokenIdCounter;
     IMessageProxyForSchain proxy;
 
     constructor(
-        address _customProxy
+        address _customProxy,
+        string memory _targetChainName
     ) ERC721("Original NFT", "ORIG") {
         _setupRole(DEFAULT_ADMIN_ROLE, msg.sender);
         _setupRole(MINTER_ROLE, _customProxy);
         proxy = IMessageProxyForSchain(0xd2AAa00100000000000000000000000000000000);
+        TARGET_CHAIN_HASH = keccak256(abi.encodePacked(_targetChainName));
     }
 
     // function mint(address to, uint256 tokenId) public returns (uint256) {
