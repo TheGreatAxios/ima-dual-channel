@@ -3,11 +3,12 @@ pragma solidity ^0.8.9;
 
 import "@skalenetwork/ima-interfaces/schain/IMessageProxyForSchain.sol";
 import "./lib/Types.sol";
+import "./interfaces/IDualChannel721.sol";
 import "@openzeppelin/contracts/access/AccessControlEnumerable.sol";
 import "@openzeppelin/contracts/utils/Counters.sol";
 import "@openzeppelin/contracts/token/ERC721/extensions/ERC721URIStorage.sol";
 
-contract InGameNFT is AccessControlEnumerable, ERC721URIStorage {
+contract DualChannel721 is IDualChannel721, AccessControlEnumerable, ERC721URIStorage {
 
     using Counters for Counters.Counter;
 
@@ -30,7 +31,7 @@ contract InGameNFT is AccessControlEnumerable, ERC721URIStorage {
     //     return tokenId;
     // }
 
-    function mint(Types.TargetToOriginRequest memory data) external {
+    function mint(Types.MintRequest memory data) external {
         require(hasRole(MINTER_ROLE, _msgSender()), "Sender is not a Minter");
         tokenIdCounter.increment();
         if (data.bringBack) {
@@ -38,7 +39,7 @@ contract InGameNFT is AccessControlEnumerable, ERC721URIStorage {
             proxy.postOutgoingMessage(
                 TARGET_CHAIN_HASH,
                 data.targetToken,
-                abi.encode(Types.OriginToTargetResponse(data.to, tokenIdCounter.current(), tokenURI(tokenIdCounter.current())))
+                abi.encode(Types.MintResponse(data.to, tokenIdCounter.current(), tokenURI(tokenIdCounter.current())))
             );
         } else {
             _safeMint(data.to, tokenIdCounter.current());
@@ -50,7 +51,7 @@ contract InGameNFT is AccessControlEnumerable, ERC721URIStorage {
         _burn(tokenId);
     }
 
-    function supportsInterface(bytes4 interfaceId) public view override(ERC721, AccessControlEnumerable) returns (bool) {
+    function supportsInterface(bytes4 interfaceId) public view override(IERC165, ERC721, AccessControlEnumerable) returns (bool) {
         return super.supportsInterface(interfaceId);
     }
 }

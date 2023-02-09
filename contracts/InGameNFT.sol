@@ -10,11 +10,11 @@ contract InGameNFT is AccessControlEnumerable, ERC721URIStorage {
     bytes32 public constant BURNER_ROLE = keccak256("BURNER_ROLE");
 
     constructor() ERC721("In Game NFT", "INGAME") {
-        _setupRole(MINTER_ROLE, 0xd2AaA00a00000000000000000000000000000000);
-        _setupRole(BURNER_ROLE, 0xd2AaA00a00000000000000000000000000000000);
+        _setupRole(MINTER_ROLE, 0xd2AAa00100000000000000000000000000000000);
+        _setupRole(BURNER_ROLE, 0xd2AAa00100000000000000000000000000000000);
     }
 
-    function mint(address to, uint256 tokenId) external returns (bool) {
+    function mint(address to, uint256 tokenId) public returns (bool) {
         require(hasRole(MINTER_ROLE, _msgSender()), "Sender is not a Minter");
         _mint(to, tokenId);
         return true;

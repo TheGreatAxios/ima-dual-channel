@@ -22,7 +22,7 @@ contract InGameContract {
         calypsoTarget = _calypsoTarget;
     }
 
-    function claim(Types.TargetToOriginRequest memory data) public {
+    function claim(Types.MintRequest memory data) public {
         proxy.postOutgoingMessage(
             TARGET_CHAIN_HASH,
             calypsoTarget,
