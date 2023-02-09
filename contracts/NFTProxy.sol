@@ -26,9 +26,9 @@ contract NFTProxy is AccessControlEnumerable {
     }
 
     constructor() {
-        _setupRole(DEFAULT_ADMIN_ROLE, msg.sender);
-        _setupRole(OWNER_ROLE, msg.sender);
-        _setupRole(IMA_ROLE, 0xd2AAa00100000000000000000000000000000000);
+        _grantRole(DEFAULT_ADMIN_ROLE, msg.sender);
+        _grantRole(OWNER_ROLE, msg.sender);
+        _grantRole(IMA_ROLE, 0xd2AAa00100000000000000000000000000000000);
     }
 
     function postMessage(

@@ -5,6 +5,11 @@ import 'hardhat-deploy';
 import 'hardhat-deploy-ethers';
 import chalk from "chalk";
 
+/// Import Tasks
+import "./tasks/register_contract_ima";
+import "./tasks/verify_origin_contracts";
+import "./tasks/verify_target_contracts";
+
 dotenv.config();
 
 const PRIVATE_KEY: string | undefined = (process.env.PRIVATE_KEY as string | undefined);
@@ -31,11 +36,17 @@ const config: HardhatUserConfig = {
     },
     "titan-staging-v3": {
       accounts: [PRIVATE_KEY],
-      url: BASE_STAGING_URL + "staging-aware-chief-gianfar"
+      url: BASE_STAGING_URL + "staging-aware-chief-gianfar",
+      companionNetworks: {
+        calypso: "calypso-staging-v3"
+      }
     },
     "nebula-staging-v3": {
       accounts: [PRIVATE_KEY],
-      url: BASE_STAGING_URL + "staging-faint-slimy-achird"
+      url: BASE_STAGING_URL + "staging-faint-slimy-achird",
+      companionNetworks: {
+        calypso: "calypso-staging-v3"
+      }
     },
     "calypso-mainnet": {
       accounts: [PRIVATE_KEY],
@@ -43,11 +54,17 @@ const config: HardhatUserConfig = {
     },
     "titan-mainnet": {
       accounts: [PRIVATE_KEY],
-      url: BASE_MAINNET_URL + "parallel-stormy-spica"
+      url: BASE_MAINNET_URL + "parallel-stormy-spica",
+      companionNetworks: {
+        calypso: "calypso-mainnet"
+      }
     },
     "nebula-mainnet": {
       accounts: [PRIVATE_KEY],
-      url: BASE_MAINNET_URL + "green-giddy-denebola"
+      url: BASE_MAINNET_URL + "green-giddy-denebola",
+      companionNetworks: {
+        calypso: "calypso-mainnet"
+      }
     },
   },
   etherscan: {
