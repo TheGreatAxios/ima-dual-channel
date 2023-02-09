@@ -13,7 +13,7 @@ contract InGameContract {
     IMessageProxyForSchain proxy;
     address calypsoTarget;
 
-    bytes32 public constant TARGET_CHAIN_HASH = keccak256("staging-utter-unripe-menkar");
+    bytes32 public constant TARGET_CHAIN_HASH = keccak256(abi.encodePacked("staging-utter-unripe-menkar"));
     
     constructor(
         address _calypsoTarget
@@ -22,7 +22,7 @@ contract InGameContract {
         calypsoTarget = _calypsoTarget;
     }
 
-    function claim(Types.ClaimNFT memory data) public {
+    function claim(Types.TargetToOriginRequest memory data) public {
         proxy.postOutgoingMessage(
             TARGET_CHAIN_HASH,
             calypsoTarget,

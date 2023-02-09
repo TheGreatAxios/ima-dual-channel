@@ -2,9 +2,17 @@
 pragma solidity ^0.8.9;
 
 interface Types {
-    struct ClaimNFT {
+
+    struct TargetToOriginRequest {
         address to;
-        address token;
+        address originToken;
+        address targetToken;
         bool bringBack;
+    }
+
+    struct OriginToTargetResponse {
+        address to;
+        uint256 tokenId;
+        string tokenURI;
     }
 }
