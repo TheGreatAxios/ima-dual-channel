@@ -14,7 +14,7 @@ export default async function VerifySmartContract(params: Params) : Promise<void
         await params.hre.run("verify:verify", {
           address: params.address,
           contract: params.contract,
-          constructorArgs: params.args
+          constructorArguments: params.args
         });
       } catch (err) {
         console.info(chalk.greenBright("Error Thrown on Contract Verification"));
