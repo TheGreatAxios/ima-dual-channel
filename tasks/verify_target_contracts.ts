@@ -16,7 +16,7 @@ task("verify-target-contracts", "Verify Target Contracts")
             address: (await deployments.get("InGameContract")).address,
             contract: "contracts/InGameContract.sol:InGameContract",
             args: [
-                (await companionNetworks["calypso"].deployments.get("NFTProxy")),
+                (await companionNetworks["calypso"].deployments.get("NFTProxy")).address,
                 isStaging ? "calypso-staging-v3" : "calypso-mainnet"
             ]
         });

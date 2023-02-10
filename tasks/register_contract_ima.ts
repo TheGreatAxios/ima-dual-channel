@@ -5,15 +5,17 @@ import IMA from "../abis/ima.json";
 import chalk from "chalk";
 
 task("register-contract-ima", "Register Contract with MessageProxyForSchain")
-    .addPositionalParam("contract", "Contract Address to Whitelist")
+    .addOptionalParam("contract", "Contract Address to Whitelist")
     .addOptionalParam("chain", "Chain Name to Whitelist for")
     .setAction(async(args: TaskArguments, hre: HardhatRuntimeEnvironment) => {
         
         const { ethers, deployments, getNamedAccounts } = hre;
-
+        const [ signer ] = await ethers.getSigners();
         const { deployer } = await getNamedAccounts();
 
-        const MessageProxyForSchain = new ethers.Contract(IMA["message_proxy_chain_address"], IMA["message_proxy_chain_abi"]);
+        const MessageProxyForSchain = new ethers.Contract(IMA["message_proxy_chain_address"], IMA["message_proxy_chain_abi"], signer);
+
+        console.log("Message Proxy: ", MessageProxyForSchain);
         
         const EXTRA_CONTRACT_REGISTRAR_ROLE = ethers.utils.id("EXTRA_CONTRACT_REGISTRAR_ROLE");
         const hasRole: boolean = await MessageProxyForSchain.callStatic.hasRole(EXTRA_CONTRACT_REGISTRAR_ROLE, deployer);
