@@ -6,7 +6,9 @@ import 'hardhat-deploy-ethers';
 import chalk from "chalk";
 
 /// Import Tasks
+import "./tasks/add_clone";
 import "./tasks/register_contract_ima";
+import "./tasks/test_claim";
 import "./tasks/verify_origin_contracts";
 import "./tasks/verify_target_contracts";
 

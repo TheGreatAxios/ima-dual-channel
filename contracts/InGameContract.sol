@@ -11,7 +11,7 @@ import "@skalenetwork/ima-interfaces/schain/IMessageProxyForSchain.sol";
 contract InGameContract {
 
     IMessageProxyForSchain proxy;
-    address calypsoTarget;
+    address public calypsoTarget;
 
     bytes32 public immutable TARGET_CHAIN_HASH;
     

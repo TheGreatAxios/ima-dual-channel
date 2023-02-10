@@ -16,6 +16,12 @@ echo "Deploying to $1"
 
 npx hardhat deploy --network $1 --tags target
 
+npx hardhat register-contract-ima --network calypso-staging-v3 --chain titan-staging-v3
+
+npx hardhat register-contract-ima --network titan-staging-v3 --chain calypso-staging-v3
+
+npx hardhat add-clone --network calypso-staging-v3 --chain titan-staging-v3
+
 echo "Verifying Calypso Contracts"
 
 npx hardhat verify-origin-contracts --network calypso-staging-v3

@@ -12,6 +12,7 @@ contract NFTProxy is AccessControlEnumerable {
 
     event AddClone(bytes32 indexed chainHash, address indexed token, bool indexed isERC721);
     event MintRequest(bytes32 indexed fromChainHash, address indexed sender, Types.MintRequest request);
+    event RecievedMintRequest(bytes32 indexed fromChainHash, address indexed sender);
 
     mapping(bytes32 => mapping(IDualChannel721 => bool)) public is721Clone;
 
@@ -35,17 +36,14 @@ contract NFTProxy is AccessControlEnumerable {
         bytes32 schainHash,
         address sender,
         bytes calldata data
-    )
-        external
-        onlyIMA
-    {
+    ) external { // onlyIMA
+        emit RecievedMintRequest(schainHash, sender);
         (Types.MintRequest memory req) = abi.decode(data, (Types.MintRequest));
-        require(is721Clone[schainHash][IDualChannel721(req.originToken)], "Not a valid token");
         IDualChannel721(req.originToken).mint(req);
-        emit MintRequest(schainHash, sender, req);
+        // emit MintRequest(schainHash, sender, req);
     }
 
-    function add721Clone(string memory chainName, IDualChannel721 token) external onlyOwner {
+    function add721Clone(string memory chainName, IDualChannel721 token) public onlyOwner {
         bytes32 chainHash = keccak256(abi.encodePacked(chainName));
         is721Clone[chainHash][token] = true;
         emit AddClone(chainHash, address(token), true);
