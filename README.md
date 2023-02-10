@@ -1,13 +1,54 @@
-# Sample Hardhat Project
+# IMA Dualchannel Example
 
-This project demonstrates a basic Hardhat use case. It comes with a sample contract, a test for that contract, and a script that deploys that contract.
+The goal of this example is to showcase how the IMA MessageProxy for the SKALE
+Network can be used make custom flows that enable a single user click that can have actions take place on a minimum of one other chain. 
 
-Try running some of the following tasks:
+## Installation
+1. Run the script below
+```sh
+    git clone git@github.com:TheGreatAxios/ima-dual-channel.git &&
+    cd ima-dual-channel &&
+    npm install &&
+    cp .env 
+```
+2. Add PRIVATE_KEY=012357...124 to your .env file
 
-```shell
-npx hardhat help
-npx hardhat test
-REPORT_GAS=true npx hardhat test
-npx hardhat node
-npx hardhat run scripts/deploy.ts
+## Deployment
+1. To deploy on Mainnet run ./deploy_mainnet $arg1 where $arg1 is a hardhat network name i.e calypso-mainnet
+2. To deploy on Testnet run ./deploy_staging $arg1 where $arg1 is a hardhat network name i.e calypso-staging-v3
+
+## Tasks
+
+> Notice that the tasks are geared specifically toward a primary deployment on Calypso. Key checks can be swithed out in the registration to make this work for your primary chain.
+
+Register Contract with IMA Message Proxy
+---
+
+##### Register Default Contract to ALL SKALE Chains
+```sh
+    npx hardhat register-contract-ima --network <hardhat-network>
+```
+
+##### Register Specific Contract to ALL SKALE Chain
+```sh
+    npx hardhat register-contract-ima --network <hardhat-network> --contract <eth-contract-address>
+```
+
+##### Register Specific Contract to Single SKALE Chain
+```sh
+    npx hardhat register-contract-ima --network <hardhat-network> --contract    <eth-contract-address> --chain <hardhat-network>
+```
+
+Verify Origin Contracts
+---
+
+```sh
+    npx hardhat verify-origin-contracts --network <hardhat-network>
+```
+
+Verify Target Contracts
+---
+
+```sh
+    npx hardhat verify-target-contracts --network <hardhat-network>
 ```
