@@ -17,7 +17,7 @@ task("verify-target-contracts", "Verify Target Contracts")
             contract: "contracts/InGameContract.sol:InGameContract",
             args: [
                 (await companionNetworks["calypso"].deployments.get("NFTProxy")).address,
-                isStaging ? "calypso-staging-v3" : "calypso-mainnet"
+                isStaging ? "staging-utter-unripe-menkar" : "honorable-steel-rasalhague"
             ]
         });
 
@@ -26,7 +26,7 @@ task("verify-target-contracts", "Verify Target Contracts")
             address: (await deployments.get("InGameNFT")).address,
             contract: "contracts/InGameNFT.sol:InGameNFT",
             args: [
-                isStaging ? "calypso-staging-v3" : "calypso-mainnet"
+                isStaging ? "staging-utter-unripe-menkar" : "honorable-steel-rasalhague"
             ]
         });
     })

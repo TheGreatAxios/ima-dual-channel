@@ -14,7 +14,7 @@ const deployTargetContracts: DeployFunction = async function(hre: HardhatRuntime
         name: "InGameContract",
         args: [
             (await hre.companionNetworks["calypso"].deployments.get("NFTProxy")).address,
-            isStaging ? "calypso-staging-v3" : "calypso-mainnet"
+            isStaging ? "staging-utter-unripe-menkar" : "honorable-steel-rasalhague"
         ]
     });
 
@@ -22,7 +22,7 @@ const deployTargetContracts: DeployFunction = async function(hre: HardhatRuntime
         hre,
         name: "InGameNFT",
         args: [
-            isStaging ? "calypso-staging-v3" : "calypso-mainnet"
+            isStaging ? "staging-utter-unripe-menkar" : "honorable-steel-rasalhague"
         ]
     });
 
